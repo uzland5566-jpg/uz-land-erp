@@ -2,44 +2,97 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
   <meta name="theme-color" content="#7c5cfc">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="UZ LAND">
   <link rel="manifest" href="manifest.json">
-  <title>UZ LAND ERP</title>
+  <link rel="apple-touch-icon" href="icon-192.svg">
+  <title>UZ LAND — Kirish</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{min-height:100vh;background:#0f0f13;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;color:#f0eeff;padding:20px}
-    .box{text-align:center;max-width:320px}
-    .icon{width:80px;height:80px;background:linear-gradient(135deg,#7c5cfc,#a78bfa);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;box-shadow:0 8px 28px rgba(124,92,252,.4)}
-    .name{font-weight:800;font-size:24px;letter-spacing:3px;margin-bottom:4px}
-    .sub{font-size:12px;color:#a78bfa;letter-spacing:2px;margin-bottom:28px}
-    .btn{display:block;background:linear-gradient(135deg,#7c5cfc,#5b3fd4);border:none;border-radius:12px;padding:14px 24px;font-weight:700;font-size:15px;color:#fff;text-decoration:none;cursor:pointer;box-shadow:0 6px 20px rgba(124,92,252,.35);margin-bottom:12px}
-    .hint{font-size:12px;color:#7a7a9a;line-height:1.6}
-    .steps{background:#17171f;border:1px solid #2a2a38;border-radius:12px;padding:14px 16px;margin-top:16px;text-align:left}
-    .step{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:12px;color:#a78bfa}
-    .step:last-child{margin-bottom:0}
-    .step-num{background:#7c5cfc;color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0f0f13;--card:#17171f;--border:#2a2a38;--accent:#7c5cfc;--accent2:#a78bfa;--text:#f0eeff;--muted:#7a7a9a;--inp:#1e1e2a;--red:#ff5c7a}
+    body{min-height:100vh;background:var(--bg);font-family:Arial,sans-serif;color:var(--text);display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+    .glow{position:fixed;width:500px;height:400px;background:radial-gradient(circle,rgba(124,92,252,.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none}
+    .grid{position:fixed;inset:0;background-image:linear-gradient(rgba(124,92,252,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,252,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+    .box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 24px;width:100%;max-width:360px;position:relative;z-index:1;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+    .box::before{content:'';position:absolute;top:0;left:30px;right:30px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);border-radius:2px}
+    .logo{text-align:center;margin-bottom:28px}
+    .logo-icon{width:62px;height:62px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:18px;display:inline-flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 24px rgba(124,92,252,.4);margin-bottom:14px}
+    .logo-name{font-weight:800;font-size:22px;letter-spacing:3px}
+    .logo-sub{font-size:11px;color:var(--accent2);letter-spacing:2px;margin-top:3px}
+    .field{margin-bottom:13px}
+    label{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+    input{background:var(--inp);border:1.5px solid var(--border);border-radius:9px;padding:12px 13px;font-size:15px;color:var(--text);outline:none;width:100%;transition:border-color .2s}
+    input:focus{border-color:var(--accent)}
+    input::placeholder{color:#3a3a52}
+    .btn{background:linear-gradient(135deg,var(--accent),#5b3fd4);border:none;border-radius:9px;padding:13px;font-weight:700;font-size:14px;color:#fff;cursor:pointer;width:100%;box-shadow:0 6px 20px rgba(124,92,252,.35);transition:opacity .2s;margin-top:4px}
+    .btn:hover{opacity:.9} .btn:disabled{opacity:.6;cursor:not-allowed}
+    .err{color:var(--red);font-size:12px;text-align:center;margin-top:10px;min-height:18px}
+    .toast{position:fixed;top:14px;right:14px;left:14px;background:var(--card);border:1px solid rgba(255,92,122,.4);border-radius:10px;padding:11px 15px;font-size:13px;color:var(--red);transform:translateY(-80px);opacity:0;transition:all .3s;z-index:9999;text-align:center}
+    .toast.show{transform:translateY(0);opacity:1}
   </style>
 </head>
 <body>
+<div class="grid"></div>
+<div class="glow"></div>
+<div class="toast" id="toast"></div>
 <div class="box">
-  <div class="icon">⚙️</div>
-  <div class="name">UZ LAND</div>
-  <div class="sub">ERP TIZIMI</div>
-  <a class="btn" href="https://script.google.com/macros/s/AKfycbwiNoCbND7Es5sQiBHN2mEBsc0JfQBvrrl6ety4kudLMzlpLUZRtyvcIKSPgHyJr4IT/exec">
-    🚀 Tizimga kirish
-  </a>
-  <div class="hint">Telefoningizga ilova sifatida qo'shish uchun:</div>
-  <div class="steps">
-    <div class="step"><div class="step-num">1</div><div>Chrome da bu sahifani oching</div></div>
-    <div class="step"><div class="step-num">2</div><div>⋮ menyusini bosing (yuqori o'ng)</div></div>
-    <div class="step"><div class="step-num">3</div><div>"Bosh ekranga qo'shish" tanlang</div></div>
-    <div class="step"><div class="step-num">4</div><div>"Qo'shish" bosing — tayyor! ✅</div></div>
+  <div class="logo">
+    <div class="logo-icon">⚙️</div>
+    <div class="logo-name">UZ LAND</div>
+    <div class="logo-sub">ERP TIZIMI</div>
   </div>
+  <div class="field">
+    <label>Telefon raqam</label>
+    <input type="tel" id="phone" placeholder="901234567" inputmode="numeric" autocomplete="username">
+  </div>
+  <div class="field">
+    <label>Parol</label>
+    <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password"
+      onkeydown="if(event.key==='Enter')kirish()">
+  </div>
+  <button class="btn" id="kirBtn" onclick="kirish()">🔐 Kirish</button>
+  <div class="err" id="err"></div>
 </div>
+<script src="app.js"></script>
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
+  // Avval login qilgan bo'lsa to'g'ridan yo'naltirish
+  (function(){
+    var u = getUser();
+    if (u) location.replace(pageFile(u.page));
+  })();
+
+  async function kirish() {
+    var phone = document.getElementById('phone').value.trim();
+    var pass  = document.getElementById('pass').value.trim();
+    if (!phone || !pass) { showErr('Telefon va parolni kiriting!'); return; }
+
+    var btn = document.getElementById('kirBtn');
+    btn.disabled = true; btn.textContent = '⏳ Tekshirilmoqda...';
+    document.getElementById('err').textContent = '';
+
+    try {
+      var res = await api({ action: 'checkLogin', phone: phone, password: pass });
+      if (res.success) {
+        setUser(res);
+        location.replace(pageFile(res.page));
+      } else {
+        showErr(res.message || "Noto'g'ri ma'lumot");
+      }
+    } catch(e) {
+      showErr('❌ Internet aloqasi yo\'q yoki server xato');
+    }
+    btn.disabled = false; btn.textContent = '🔐 Kirish';
+  }
+
+  function showErr(msg) {
+    document.getElementById('err').textContent = msg;
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3000);
   }
 </script>
 </body>

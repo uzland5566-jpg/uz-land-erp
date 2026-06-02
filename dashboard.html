@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="theme-color" content="#7c5cfc">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <title>Dashboard — UZ LAND</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="toast" id="toast"></div>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="brand">
+      <div class="b-icon">⚙️</div>
+      <div><div class="b-name">UZ LAND</div><div class="b-sub">DASHBOARD</div></div>
+    </div>
+    <div class="hdr-right">
+      <div class="date-pill" id="dateBadge">📅</div>
+      <button class="out-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="sc g"><div class="sc-icon">📦</div><div class="sc-val" id="sJami">-</div><div class="sc-lbl">Jami buyurtma</div></div>
+    <div class="sc b"><div class="sc-icon">⚡</div><div class="sc-val" id="sJarayonda">-</div><div class="sc-lbl">Jarayonda</div></div>
+    <div class="sc p"><div class="sc-icon">✅</div><div class="sc-val" id="sTayyor">-</div><div class="sc-lbl">Tayyor</div></div>
+    <div class="sc y"><div class="sc-icon">✂️</div><div class="sc-val" id="sPartiya">-</div><div class="sc-lbl">Jami partiya</div></div>
+  </div>
+
+  <!-- Bosqichlar -->
+  <div class="card">
+    <div class="card-hdr"><div class="card-ttl">🔄 Bosqichlar bo'yicha</div></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:14px">
+      <div style="text-align:center;background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.15);border-radius:10px;padding:10px 4px">
+        <div style="font-size:18px">👤</div><div style="font-weight:800;font-size:17px;color:#a78bfa" id="b0">-</div><div style="font-size:9px;color:#7a7a9a;margin-top:2px">Buyurtma</div>
+      </div>
+      <div style="text-align:center;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:10px;padding:10px 4px">
+        <div style="font-size:18px">⚡</div><div style="font-weight:800;font-size:17px;color:#38bdf8" id="b1">-</div><div style="font-size:9px;color:#7a7a9a;margin-top:2px">Laser</div>
+      </div>
+      <div style="text-align:center;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.15);border-radius:10px;padding:10px 4px">
+        <div style="font-size:18px">🧵</div><div style="font-weight:800;font-size:17px;color:#fbbf24" id="b2">-</div><div style="font-size:9px;color:#7a7a9a;margin-top:2px">Chevar</div>
+      </div>
+      <div style="text-align:center;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:10px;padding:10px 4px">
+        <div style="font-size:18px">💧</div><div style="font-weight:800;font-size:17px;color:#38bdf8" id="b3">-</div><div style="font-size:9px;color:#7a7a9a;margin-top:2px">Quyish</div>
+      </div>
+      <div style="text-align:center;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);border-radius:10px;padding:10px 4px">
+        <div style="font-size:18px">✅</div><div style="font-weight:800;font-size:17px;color:#4ade80" id="b4">-</div><div style="font-size:9px;color:#7a7a9a;margin-top:2px">Tayyor</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tezkor o'tish -->
+  <div class="card">
+    <div class="card-hdr"><div class="card-ttl">🚀 Tezkor o'tish</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px">
+      <a href="buyurtma.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(124,92,252,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">📦</div>
+        <div><div style="font-size:13px;font-weight:600">Buyurtmalar</div><div style="font-size:10px;color:#7a7a9a">Yangi buyurtma</div></div>
+      </a>
+      <a href="laser.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(56,189,248,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">⚡</div>
+        <div><div style="font-size:13px;font-weight:600">Laser sehi</div><div style="font-size:10px;color:#7a7a9a">Kesish jarayoni</div></div>
+      </a>
+      <a href="chevar.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(251,191,36,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">🧵</div>
+        <div><div style="font-size:13px;font-weight:600">Chevarxona</div><div style="font-size:10px;color:#7a7a9a">Tikish jarayoni</div></div>
+      </a>
+      <a href="quyish.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(56,189,248,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">💧</div>
+        <div><div style="font-size:13px;font-weight:600">Quyish sehi</div><div style="font-size:10px;color:#7a7a9a">Quyish jarayoni</div></div>
+      </a>
+      <a href="qadoqlash.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">📫</div>
+        <div><div style="font-size:13px;font-weight:600">Qadoqlash</div><div style="font-size:10px;color:#7a7a9a">Tayyor mahsulot</div></div>
+      </a>
+      <a href="ombor.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(251,191,36,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">🏭</div>
+        <div><div style="font-size:13px;font-weight:600">Ombor</div><div style="font-size:10px;color:#7a7a9a">Mahsulot ombori</div></div>
+      </a>
+      <a href="sotuvchi.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">💰</div>
+        <div><div style="font-size:13px;font-weight:600">Sotuvchi</div><div style="font-size:10px;color:#7a7a9a">Savdo va mijozlar</div></div>
+      </a>
+      <a href="retseptura.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(124,92,252,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">📋</div>
+        <div><div style="font-size:13px;font-weight:600">Retseptura</div><div style="font-size:10px;color:#7a7a9a">BOM / Xom ashyo</div></div>
+      </a>
+      <a href="xodimlar.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(251,191,36,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">👷</div>
+        <div><div style="font-size:13px;font-weight:600">Xodimlar</div><div style="font-size:10px;color:#7a7a9a">Oylik ish va maosh</div></div>
+      </a>
+      <a href="admin.html" style="display:flex;align-items:center;gap:9px;background:rgba(255,92,122,.04);border:1.5px solid rgba(255,92,122,.25);border-radius:10px;padding:11px;text-decoration:none;color:inherit">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,92,122,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">⚙️</div>
+        <div><div style="font-size:13px;font-weight:600;color:#ff5c7a">Admin</div><div style="font-size:10px;color:#7a7a9a">Kirim va chiqim</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- So'nggi buyurtmalar -->
+  <div class="card">
+    <div class="card-hdr">
+      <div class="card-ttl">📋 So'nggi buyurtmalar</div>
+      <button class="btn btn-b btn-sm" onclick="loadBuyurtmalar()">🔄</button>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>№</th><th>Model</th><th>Sana</th><th>Partiya</th><th>Bosqich</th></tr></thead>
+        <tbody id="bTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script src="app.js"></script>
+<script>
+  window.onload = function() {
+    var u = requireLogin(['Dashboard']);
+    if (!u) return;
+    setDate('dateBadge');
+    loadStats();
+    loadBuyurtmalar();
+  };
+
+  async function loadStats() {
+    try {
+      var r = await api({ action: 'getDashboardStats' });
+      if (!r.success) return;
+      document.getElementById('sJami').textContent      = r.jami;
+      document.getElementById('sJarayonda').textContent = r.jarayonda;
+      document.getElementById('sTayyor').textContent    = r.tayyor;
+      document.getElementById('sPartiya').textContent   = r.jamiPartiya;
+      if (r.bosqichlar) {
+        var b = r.bosqichlar;
+        ['buyurtmachi','laser','chevarxona','quyish','tayyor'].forEach(function(k,i){
+          var el = document.getElementById('b'+i);
+          if (el) el.textContent = b[k]||0;
+        });
+      }
+    } catch(e) { toast('❌ Stats yuklanmadi','error'); }
+  }
+
+  async function loadBuyurtmalar() {
+    var tbody = document.getElementById('bTbody');
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:16px;color:#7a7a9a">⏳</td></tr>';
+    try {
+      var r = await api({ action: 'getBuyurtmalar' });
+      if (!r.success || !r.data || !r.data.length) {
+        tbody.innerHTML = '<tr><td colspan="5"><div class="empty"><div class="ei">📭</div>Buyurtma yo\'q</div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = '';
+      r.data.slice(-7).reverse().forEach(function(row) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><b>'+(row[0]||'')+'</b></td><td>'+(row[1]||'')+'</td><td>'+(row[2]||'')+'</td><td>'+(row[5]||'')+'</td><td><span style="font-size:11px;color:#a78bfa">'+(row[7]||'Laser')+'</span></td>';
+        tbody.appendChild(tr);
+      });
+    } catch(e) { tbody.innerHTML = '<tr><td colspan="5"><div class="empty"><div class="ei">⚠️</div>Yuklashda xato</div></td></tr>'; }
+  }
+</script>
+</body>
+</html>
