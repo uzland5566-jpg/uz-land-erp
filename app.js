@@ -2,7 +2,7 @@
 // app.js — Umumiy kutubxona
 // =============================================
 
-var API = 'https://script.google.com/macros/s/AKfycbzvF6rbxNzdQrPsi_5hqEoyFb3uwuRUCtAgr2oxU1eytKXOPptc8GV6x8axEtGlv9FU/exec';
+var API = 'https://script.google.com/macros/s/AKfycbwLymwSv0zomZw_ldP99m1hVRSSuNf2U5ZfHo7Ua--ZHvtnDhGyMKOjXmj1LVpVNMVo/exec';
 
 // ─── JSONP orqali GET (CORS muammosini hal qiladi) ───
 function api(params) {
