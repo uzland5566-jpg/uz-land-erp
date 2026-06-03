@@ -1,24 +1,48 @@
 // =============================================
-// app.js — Umumiy kutubxona (barcha sahifalar ishlatadi)
+// app.js — Umumiy kutubxona
 // =============================================
 
 var API = 'https://script.google.com/macros/s/AKfycbzvF6rbxNzdQrPsi_5hqEoyFb3uwuRUCtAgr2oxU1eytKXOPptc8GV6x8axEtGlv9FU/exec';
 
-// ─── API chaqiruvlar ──────────────────────────────
-async function api(params) {
-  var url = API + '?' + new URLSearchParams(params).toString();
-  var res = await fetch(url);
-  if (!res.ok) throw new Error('Server xato: ' + res.status);
-  return res.json();
+// ─── JSONP orqali GET (CORS muammosini hal qiladi) ───
+function api(params) {
+  return new Promise(function(resolve, reject) {
+    var cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random()*9999);
+    params.callback = cbName;
+
+    window[cbName] = function(data) {
+      delete window[cbName];
+      document.getElementById('_jsonp_' + cbName) && 
+        document.getElementById('_jsonp_' + cbName).remove();
+      resolve(data);
+    };
+
+    var script = document.createElement('script');
+    script.id = '_jsonp_' + cbName;
+    script.src = API + '?' + new URLSearchParams(params).toString();
+    script.onerror = function() {
+      delete window[cbName];
+      script.remove();
+      reject(new Error('Tarmoq xatosi'));
+    };
+    setTimeout(function() {
+      if (window[cbName]) {
+        delete window[cbName];
+        script.remove();
+        reject(new Error('Timeout'));
+      }
+    }, 15000);
+    document.head.appendChild(script);
+  });
 }
 
+// ─── POST — fetch bilan (login uchun emas) ───
 async function apiPost(data) {
   var res = await fetch(API, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(data)
   });
-  if (!res.ok) throw new Error('Server xato: ' + res.status);
   return res.json();
 }
 
@@ -49,7 +73,7 @@ function pageFile(page) {
   return m[page] || 'index.html';
 }
 
-// ─── UI yordamchilar ──────────────────────────────
+// ─── UI ───────────────────────────────────────────
 function fmt(n) {
   return String(Math.round(parseFloat(String(n).replace(/[^\d.]/g,''))||0))
          .replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -82,7 +106,6 @@ function empty(tbodyId, cols, msg) {
   if (el) el.innerHTML = '<tr><td colspan="'+cols+'"><div style="text-align:center;padding:24px;color:#7a7a9a;font-size:13px"><div style="font-size:24px;margin-bottom:6px">📭</div>'+(msg||"Ma'lumot yo'q")+'</div></td></tr>';
 }
 
-// ─── Service Worker ───────────────────────────────
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }
