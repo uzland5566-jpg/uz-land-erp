@@ -2,7 +2,7 @@
 // app.js — Umumiy kutubxona (barcha sahifalar ishlatadi)
 // =============================================
 
-var API = 'https://script.google.com/macros/s/AKfycbwiNoCbND7Es5sQiBHN2mEBsc0JfQBvrrl6ety4kudLMzlpLUZRtyvcIKSPgHyJr4IT/exec';
+var API = 'https://script.google.com/macros/s/AKfycbzvF6rbxNzdQrPsi_5hqEoyFb3uwuRUCtAgr2oxU1eytKXOPptc8GV6x8axEtGlv9FU/exec';
 
 // ─── API chaqiruvlar ──────────────────────────────
 async function api(params) {
